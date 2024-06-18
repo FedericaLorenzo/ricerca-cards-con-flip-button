@@ -318,21 +318,22 @@ document.addEventListener("DOMContentLoaded", function () {
   ]`;
 
   const gameCardsArr = JSON.parse(gameCardsJSON);
-console.log(gameCardsArr)
 
   const container = document.querySelector('.container');
 
 
   //INIZIO SEZIONE DI STAMPA DEL TEMPLATE
   function printCard(array) {
+
+    container.innerHTML = ""
     for (let index = 0; index < array.length; index++) {
       let card = array[index];
-      
+
       // template interno della lista per poter capire quanti li stampare a seconda dell'array della carta
-        let nextCardsTemplate = '';
-        for (let i = 0; i < card.nextCards.length; i++) {
-          nextCardsTemplate += `<li class="next-card"> ${card.nextCards[i].name} <br> Costo del tempo: ${card.nextCards[i].timeCost} </li>`
-        }
+      let nextCardsTemplate = '';
+      for (let i = 0; i < card.nextCards.length; i++) {
+        nextCardsTemplate += `<li class="next-card"> ${card.nextCards[i].name} <br> Costo del tempo: ${card.nextCards[i].timeCost} </li>`
+      }
 
       const cardTemplate =
         `<div class="card">
@@ -369,13 +370,13 @@ console.log(gameCardsArr)
     }
   }
 
-//funzione per utilizzare il bottone del flip
-  function buttonsFlip(){
+  //funzione per utilizzare il bottone del flip
+  function buttonsFlip() {
     const buttons = document.querySelectorAll('.read-more');
     const cardsHTML = document.querySelectorAll('.card');
-  
+
     for (let index = 0; index < buttons.length; index++) {
-  
+
       buttons[index].addEventListener('click', function () {
         cardsHTML[index].classList.toggle('is-flipped');
       })
@@ -389,11 +390,11 @@ console.log(gameCardsArr)
 
 
   //INIZIO SEZIONE RICERCA E RESET
- const searchInput = document.querySelector('.search__input');
- const searchButton = document.querySelector('.search__button');
- const resetButton = document.querySelector('.reset__button');
+  const searchInput = document.querySelector('.search__input');
+  const searchButton = document.querySelector('.search__button');
+  const resetButton = document.querySelector('.reset__button');
 
- 
+
   searchButton.addEventListener('click', function () {
     const searchedCards = [];
     container.innerHTML = '';
@@ -405,13 +406,16 @@ console.log(gameCardsArr)
       } else {
         container.innerHTML = '';
       }
-    } 
+    }
     printCard(searchedCards);
     buttonsFlip();
+    searchInput.value = ''
+
   })
 
 
-  resetButton.addEventListener('click', function(){
+  resetButton.addEventListener('click', function () {
+
     printCard(gameCardsArr);
     buttonsFlip();
   })
